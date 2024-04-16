@@ -1,0 +1,39 @@
+$rem: 16px;
+
+html {
+  font-size: $rem;
+}
+
+li {
+  font-size: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: calc(99 * var(--font-size));
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: calc(99 * var(--font-size));
+  }
+
+  &::-webkit-scrollbar {
+    width: calc(0.25 * var(--font-size));
+    height: calc(0.25 * var(--font-size));
+  }
+}
+
+input,
+button,
+textarea,
+select {
+  margin: 0;
+
+  font: inherit;
+}

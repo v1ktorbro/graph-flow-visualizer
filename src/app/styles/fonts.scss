@@ -1,0 +1,127 @@
+// large - 16px --> calc(1 * var(--font-size))
+// medium - 14px --> calc(0.875 * var(--font-size))
+// small - 12px --> calc(0.75 * var(--font-size))
+@mixin _text($size, $color: var(--color-text), $weight: 400) {
+  font: {
+    family: "Inter", "Serif";
+    style: normal;
+    weight: $weight;
+    size: $size;
+  }
+  line-height: 120%;
+  color: $color;
+}
+
+// Заголовок страницы
+@mixin title-page {
+  // 18 px
+  @include _text(calc(1.125 * var(--font-size)), var(--color-text), 600);
+}
+
+// Заголовок страницы inverted
+@mixin title-page-inverted {
+  // 18 px
+  @include _text(
+    calc(1.125 * var(--font-size)),
+    var(--color-text-inverted),
+    600
+  );
+}
+
+// Подзаголовок страницы
+@mixin subtitle {
+  // 18 px
+  @include _text(calc(1.125 * var(--font-size)), #c8c8c8);
+}
+
+// Подзаголовок страницы inverted
+@mixin subtitle-inverted {
+  // 18 px
+  @include _text(calc(1.125 * var(--font-size)), #c8c8c8);
+}
+
+// Название задания
+@mixin title-large {
+  // 16 px
+  @include _text(calc(1 * var(--font-size)));
+}
+
+// Название задания inverted
+@mixin title-large-inverted {
+  // 16 px
+  @include _text(calc(1 * var(--font-size)), var(--color-text-inverted));
+}
+
+// Текст / Таблица / Список меню выделенные
+@mixin title-medium {
+  // 14 px
+  @include _text(calc(0.875 * var(--font-size)), var(--color-text), 600);
+}
+
+// Текст / Таблица / Список меню выделенные inverted
+@mixin title-medium-inverted {
+  // 14 px
+  @include _text(
+    calc(0.875 * var(--font-size)),
+    var(--color-text-inverted),
+    600
+  );
+}
+
+// Таблица заголовок
+@mixin title-small {
+  // 12 px
+  @include _text(calc(0.75 * var(--font-size)), var(--color-text), 600);
+}
+
+// Таблица заголовок inverted
+@mixin title-small-inverted {
+  // 12 px
+  @include _text(
+    calc(0.75 * var(--font-size)),
+    var(--color-text-inverted),
+    600
+  );
+}
+
+// Выпадающий список / поля ввода
+@mixin text-input-list {
+  // 12 px
+  @include _text(calc(0.75 * var(--font-size)));
+}
+
+// Выпадающий список / поля ввода inverted
+@mixin text-input-list-inverted {
+  // 12 px
+  @include _text(calc(0.75 * var(--font-size)), var(--color-text-inverted));
+}
+
+//  Кнопки / Текстовое поле/ Таблица / Список меню
+@mixin text-large {
+  // 16 px
+  @include _text(calc(1 * var(--font-size)), var(--color-text-secondary));
+}
+
+//  Кнопки / Текстовое поле/ Таблица / Список меню
+@mixin text-medium {
+  // 14 px
+  @include _text(calc(0.875 * var(--font-size)), var(--color-text));
+}
+
+//  Кнопки / Текстовое поле/ Таблица / Список меню inverted
+@mixin text-medium-inverted {
+  // 14 px
+  @include _text(calc(0.875 * var(--font-size)), var(--color-text-inverted));
+}
+
+// Параметры / Большой текст
+@mixin text-small {
+  // 12 px
+  @include _text(calc(0.75 * var(--font-size)), var(--color-text-secondary));
+}
+
+// Параметры / Большой текст
+@mixin text-small-inverted {
+  // 12 px
+  @include _text(calc(0.75 * var(--font-size)), var(--color-text-inverted));
+}
