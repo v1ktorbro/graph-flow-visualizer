@@ -13,4 +13,6 @@ declare module "*.scss" {
   export default content;
 }
 
+declare module "*.css";
+
 declare const __IS_DEV__: boolean;
