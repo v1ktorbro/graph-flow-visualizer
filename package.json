@@ -1,5 +1,5 @@
 {
-  "name": "clean_frontend",
+  "name": "graph-flow-visualizer",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -10,7 +10,7 @@
     "build": "webpack --env mode=production"
   },
   "keywords": [],
-  "author": "",
+  "author": "Victor Abrosimov",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.24.0",
