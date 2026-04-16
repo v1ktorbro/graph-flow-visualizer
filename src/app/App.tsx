@@ -4,7 +4,6 @@ import "@xyflow/react/dist/style.css";
 import scss from "./app.module.scss";
 
 import { Provider } from "react-redux";
-import { ReactFlow, Background, Controls } from "@xyflow/react";
 
 import { store } from "../redux/store";
 
@@ -16,11 +15,7 @@ const App = () => {
     <ErrorBoundary>
       <Provider store={store}>
         <main className={scss.root}>
-          <ReactFlow>
-            <Background />
-            <Controls />
-            <Flow />
-          </ReactFlow>
+          <Flow />
         </main>
       </Provider>
     </ErrorBoundary>
