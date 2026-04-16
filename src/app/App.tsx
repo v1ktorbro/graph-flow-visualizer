@@ -1,12 +1,13 @@
 import "./styles/index.scss";
 import "@xyflow/react/dist/style.css";
+
 import scss from "./app.module.scss";
 
 import { Provider } from "react-redux";
+import { ReactFlow, Background, Controls } from "@xyflow/react";
 
 import { store } from "../redux/store";
 
-import Counter from "../components/Counter/Counter";
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 import Flow from "../components/Flow/Flow";
 
@@ -15,9 +16,11 @@ const App = () => {
     <ErrorBoundary>
       <Provider store={store}>
         <main className={scss.root}>
-          <h1>Шаблон для разработки фронта</h1>
-          <Counter />
-          <Flow />
+          <ReactFlow>
+            <Background />
+            <Controls />
+            <Flow />
+          </ReactFlow>
         </main>
       </Provider>
     </ErrorBoundary>
