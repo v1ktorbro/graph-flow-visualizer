@@ -1,0 +1,85 @@
+import type { Edge } from "@xyflow/react";
+
+export const edgesData: Edge[] = [
+  {
+    id: "requirements-to-design",
+    type: "custom",
+    source: "requirements",
+    target: "design",
+    sourceHandle: "right-source",
+    targetHandle: "left-target",
+  },
+  {
+    id: "design-to-implementation_a",
+    type: "custom",
+    source: "design",
+    target: "implementation_a",
+    sourceHandle: "bottom-source",
+    targetHandle: "top-target",
+  },
+  {
+    id: "implementation_a-to-b",
+    type: "custom",
+    source: "implementation_a",
+    target: "implementation_b",
+    sourceHandle: "right-source",
+    targetHandle: "left-target",
+  },
+  {
+    id: "implementation_b-to-c",
+    type: "custom",
+    source: "implementation_b",
+    target: "implementation_c",
+    sourceHandle: "right-source",
+    targetHandle: "left-target",
+  },
+  {
+    id: "implementation_c-to-d",
+    type: "custom",
+    source: "implementation_c",
+    target: "implementation_d",
+    sourceHandle: "right-source",
+    targetHandle: "left-target",
+  },
+  {
+    id: "implementation_a-to-acceptance",
+    type: "custom",
+    source: "implementation_a",
+    target: "acceptance",
+    sourceHandle: "bottom-source",
+    targetHandle: "top-target",
+  },
+
+  {
+    id: "implementation_d-to-integration_test",
+    type: "custom",
+    source: "implementation_d",
+    target: "integration_test",
+    sourceHandle: "bottom-source",
+    targetHandle: "top-target",
+  },
+  {
+    id: "integration_test-to-acceptance",
+    type: "custom",
+    source: "integration_test",
+    target: "acceptance",
+    sourceHandle: "left-source",
+    targetHandle: "right-target",
+  },
+  {
+    id: "acceptance-to-deploy",
+    type: "custom",
+    source: "acceptance",
+    target: "deploy",
+    sourceHandle: "bottom-source", //
+    targetHandle: "bottom-target",
+  },
+  {
+    id: "deploy-to-operations",
+    type: "custom",
+    source: "deploy",
+    target: "operations",
+    sourceHandle: "right-source",
+    targetHandle: "left-target",
+  },
+];

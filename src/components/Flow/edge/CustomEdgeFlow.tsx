@@ -1,5 +1,5 @@
 import {
-  getStraightPath,
+  getSmoothStepPath,
   BaseEdge,
   type EdgeProps,
   type Edge,
@@ -11,10 +11,23 @@ export default function CustomEdge({
   id,
   sourceX,
   sourceY,
+  sourcePosition,
   targetX,
   targetY,
+  targetPosition,
 }: EdgeProps<CustomEdge>) {
-  const [edgePath] = getStraightPath({ sourceX, sourceY, targetX, targetY });
+  const [edgePath] = getSmoothStepPath({
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition,
+    borderRadius: 18,
+    offset: 28,
+    //  borderRadius: 6,
+    // offset: 8,
+  });
   const markerId = `edge-arrow-open-${id}`;
 
   return (
@@ -23,7 +36,7 @@ export default function CustomEdge({
         <marker
           id={markerId}
           viewBox="0 0 14 14"
-          refX="8"
+          refX="6"
           refY="7"
           markerWidth="14"
           markerHeight="14"

@@ -1,4 +1,4 @@
-import { ComponentType, FC, lazy, memo } from "react";
+import { ComponentType, FC, Suspense, lazy, memo } from "react";
 
 export type IIconRendererTypes =
   | "pieChartBroken"
@@ -51,7 +51,12 @@ const IconRenderer: FC<{ name: IIconRendererTypes; className?: string }> = ({
   className,
 }) => {
   const Icon = ICONS_ENUM[name];
-  return <Icon className={className} />;
+
+  return (
+    <Suspense fallback={<span className={className} aria-hidden="true" />}>
+      <Icon className={className} />
+    </Suspense>
+  );
 };
 
 export default memo(IconRenderer);

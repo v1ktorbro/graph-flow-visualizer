@@ -1,0 +1,22 @@
+@use "../../../../app/styles/fonts.scss";
+
+.root {
+  &:not(.stageNodeCompact) {
+    padding-inline: 0.75rem;
+    padding-block: 0.5rem 0.75rem;
+
+    border: var(--border);
+    border-radius: 0.5rem;
+    border-width: 2px;
+  }
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  @include fonts.title-medium();
+}
+
+.ul {
+  display: flex;
+  flex-direction: column;
+}

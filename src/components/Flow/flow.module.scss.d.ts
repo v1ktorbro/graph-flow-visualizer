@@ -1,7 +1,7 @@
 declare namespace FlowModuleScssNamespace {
   export interface IFlowModuleScss {
-    testHandle: string;
-    textUpdater: string;
+    flowCanvas: string;
+    flowRoot: string;
   }
 }
 

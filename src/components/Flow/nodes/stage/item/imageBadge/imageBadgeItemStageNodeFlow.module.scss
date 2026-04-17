@@ -1,0 +1,16 @@
+@use "../../../../../../app/styles/fonts.scss";
+
+.root {
+  @include fonts.title-small-inverted;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--avatar-from), var(--avatar-to));
+  box-shadow: 0 8px 20px rgba(45, 68, 104, 0.22);
+}
