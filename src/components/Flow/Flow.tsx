@@ -1,19 +1,21 @@
 import scss from "./flow.module.scss";
 
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback } from "react";
 
 import {
   Background,
   BackgroundVariant,
   Controls,
   ReactFlow,
-  applyNodeChanges,
+  addEdge,
+  useEdgesState,
+  useNodesState,
 } from "@xyflow/react";
 
-import type { Edge, NodeChange } from "@xyflow/react";
+import type { Connection, Edge } from "@xyflow/react";
 import type { IWorkflowNode } from "../../assets/types/flowTypes";
 
-import CustomEdge from "./edge/CustomEdgeFlow";
+import CustomEdgeFlow from "./edge/CustomEdgeFlow";
 import ExploitationButtonNodeFlow from "./nodes/exploitationButton/ExploitationButtonNodeFlow";
 import StageNodeFlow from "./nodes/stage/StageNodeFlow";
 
@@ -27,7 +29,7 @@ const nodeTypes = {
 };
 
 const edgeTypes = {
-  custom: CustomEdge,
+  custom: CustomEdgeFlow,
 };
 
 const defaultEdgeOptions = {
@@ -35,39 +37,14 @@ const defaultEdgeOptions = {
 };
 
 const Flow = () => {
-  const [nodes, setNodes] = useState<IWorkflowNode[]>(() =>
-    createWorkflowNodes(handleTaskStatusToggle),
-  );
+  const [nodes, , onNodesChange] = useNodesState(createWorkflowNodes());
+  const [edges, setEdges, onEdgesChange] = useEdgesState(edgesData);
 
-  function handleTaskStatusToggle(nodeId: string, taskId: string) {
-    setNodes((currentNodes) =>
-      currentNodes.map((node) => {
-        if (node.type !== "stage" || node.id !== nodeId) {
-          return node;
-        }
-
-        return {
-          ...node,
-          data: {
-            ...node.data,
-            tasks: node.data.tasks.map((task) =>
-              task.id === taskId
-                ? {
-                    ...task,
-                    // status: getNextTaskStatus(task.status),
-                  }
-                : task,
-            ),
-          },
-        };
-      }),
-    );
-  }
-
-  const onNodesChange = useCallback(
-    (changes: NodeChange<IWorkflowNode>[]) =>
-      setNodes((currentNodes) => applyNodeChanges(changes, currentNodes)),
-    [],
+  const onConnect = useCallback(
+    (connection: Connection) => {
+      setEdges((eds) => addEdge(connection, eds));
+    },
+    [setEdges],
   );
 
   return (
@@ -75,19 +52,22 @@ const Flow = () => {
       <ReactFlow<IWorkflowNode, Edge>
         className={scss.flowCanvas}
         nodes={nodes}
-        edges={edgesData}
+        edges={edges}
         nodeTypes={nodeTypes}
+        onNodesChange={onNodesChange}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
-        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         fitView
         fitViewOptions={{ padding: 0.12 }}
         // minZoom={0.45}
         // maxZoom={1.4}
+        onConnect={onConnect}
         nodesConnectable={false}
         nodesDraggable
         elementsSelectable
         proOptions={{ hideAttribution: true }}
+        deleteKeyCode={["Delete"]}
       >
         <Background
           color="rgba(47, 128, 237, 0.12)"

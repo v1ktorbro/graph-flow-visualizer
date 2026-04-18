@@ -1,13 +1,7 @@
-import {
-  getSmoothStepPath,
-  BaseEdge,
-  type EdgeProps,
-  type Edge,
-} from "@xyflow/react";
+import { getSmoothStepPath, BaseEdge, type EdgeProps } from "@xyflow/react";
+import { memo, useMemo } from "react";
 
-type CustomEdge = Edge<{ value: number }, "custom-edge">;
-
-export default function CustomEdge({
+const CustomEdgeFlow = ({
   id,
   sourceX,
   sourceY,
@@ -15,7 +9,15 @@ export default function CustomEdge({
   targetX,
   targetY,
   targetPosition,
-}: EdgeProps<CustomEdge>) {
+  selected,
+}: EdgeProps) => {
+  const markerId = useMemo(() => `edge-arrow-open-${id}`, [id]);
+
+  const strokeColor = useMemo(
+    () => (selected ? "var(--color-warning)" : "var(--color-info-light)"),
+    [selected],
+  );
+
   const [edgePath] = getSmoothStepPath({
     sourceX,
     sourceY,
@@ -25,10 +27,7 @@ export default function CustomEdge({
     targetPosition,
     borderRadius: 18,
     offset: 28,
-    //  borderRadius: 6,
-    // offset: 8,
   });
-  const markerId = `edge-arrow-open-${id}`;
 
   return (
     <>
@@ -46,7 +45,7 @@ export default function CustomEdge({
           <path
             d="M 1.343 1.343 L 7 7 L 1.343 12.657"
             fill="none"
-            stroke="#2F80ED"
+            stroke={strokeColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -57,9 +56,11 @@ export default function CustomEdge({
       <BaseEdge
         id={id}
         path={edgePath}
-        style={{ stroke: "#2F80ED", strokeWidth: 2 }}
+        style={{ stroke: strokeColor, strokeWidth: 2 }}
         markerEnd={`url(#${markerId})`}
       />
     </>
   );
-}
+};
+
+export default memo(CustomEdgeFlow);

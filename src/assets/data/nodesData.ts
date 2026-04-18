@@ -36,9 +36,7 @@ const createImplementationTasks = (
   },
 ];
 
-export const createWorkflowNodes = (
-  onTaskStatusToggle: (nodeId: string, taskId: string) => void,
-): IWorkflowNode[] => [
+export const createWorkflowNodes = (): IWorkflowNode[] => [
   {
     id: "requirements",
     type: "stage",
@@ -68,7 +66,6 @@ export const createWorkflowNodes = (
       handles: flowHandleCreate({
         // rightSource: "49%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -109,7 +106,6 @@ export const createWorkflowNodes = (
         // leftTarget: "46%",
         // bottomSource: "44%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -130,7 +126,6 @@ export const createWorkflowNodes = (
         rightSource: "79%",
         // bottomSource: "50%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -151,7 +146,6 @@ export const createWorkflowNodes = (
         rightSource: "79%",
         // bottomSource: "50%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -171,7 +165,6 @@ export const createWorkflowNodes = (
         leftTarget: "79%",
         rightSource: "79%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -190,7 +183,6 @@ export const createWorkflowNodes = (
       handles: flowHandleCreate({
         leftTarget: "79%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -217,7 +209,6 @@ export const createWorkflowNodes = (
         // rightSource: "78%",
         // bottomSource: "50%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -242,7 +233,6 @@ export const createWorkflowNodes = (
         // topTarget: "50%",
         // leftSource: "50%",
       }),
-      onTaskStatusToggle,
     },
   },
   {
@@ -269,7 +259,6 @@ export const createWorkflowNodes = (
         // rightSource: "50%",
         // bottomTarget: "50%",
       }),
-      onTaskStatusToggle,
     },
   },
   {

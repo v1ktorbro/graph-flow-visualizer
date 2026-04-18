@@ -50,7 +50,6 @@ export interface INodeData extends Record<string, unknown> {
   executors: Record<string, IStaffTask>;
   handles: IFlowHandleData[];
   variant?: StageNodeVariant;
-  onTaskStatusToggle: (nodeId: string, taskId: string) => void;
 }
 
 // простой тип данных для финальной синей кнопки “ЭКСПЛУАТАЦИЯ”
