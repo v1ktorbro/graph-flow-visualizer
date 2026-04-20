@@ -1,165 +1,233 @@
-import type { ITaskNode, TaskStatus, IWorkflowNode } from "../types/flowTypes";
+import type {
+  ISubNode,
+  SubNodeStatus,
+  IWorkflowNode,
+} from "../types/flowTypes";
 
 import { flowHandleCreate } from "../utils/flowHandleCreate/flowHandleCreate";
 import { staffs } from "./staffData";
 
 const NODE_WIDTH = 240;
+const NODE_HEIGHT = 255;
 
 const createImplementationTasks = (
   prefix: string,
   assigneeIds: readonly [string, string, string],
-  statuses: readonly [TaskStatus, TaskStatus, TaskStatus],
-): ITaskNode[] => [
+  statuses: readonly [SubNodeStatus, SubNodeStatus, SubNodeStatus],
+): ISubNode[] => [
   {
     id: `${prefix}_modules`,
-    title: "Реализация модулей",
-    icon: "boxBroken",
-    executorId: assigneeIds[0],
-    status: statuses[0],
-    bgTone: "success",
+    parentId: prefix,
+    style: { width: 220, minWidth: "min-content" },
+    position: { x: 12, y: 30 },
+    type: "subNode",
+    extent: "parent",
+    data: {
+      label: "Реализация модулей",
+      icon: "boxBroken",
+      executorId: assigneeIds[0],
+      status: statuses[0],
+      bgTone: "success",
+      handles: flowHandleCreate({}),
+    },
   },
   {
     id: `${prefix}_tests`,
-    title: "Покрытия\nтестами",
-    icon: "codeSquareOutline",
-    executorId: assigneeIds[1],
-    status: statuses[1],
-    bgTone: "warning",
+    parentId: prefix,
+    style: { width: 220, minWidth: "min-content" },
+    position: { x: 12, y: 110 },
+    type: "subNode",
+    extent: "parent",
+    data: {
+      label: "Покрытия\nтестами",
+      icon: "codeSquareOutline",
+      executorId: assigneeIds[1],
+      status: statuses[1],
+      bgTone: "warning",
+      handles: flowHandleCreate({}),
+    },
   },
   {
     id: `${prefix}_integration`,
-    title: "Интеграционная связка",
-    icon: "filtersBroken",
-    executorId: assigneeIds[2],
-    status: statuses[2],
-    bgTone: "info",
+    parentId: prefix,
+    style: { width: 220, minWidth: "min-content" },
+    position: { x: 12, y: 190 },
+    type: "subNode",
+    extent: "parent",
+    data: {
+      label: "Интеграционная связка",
+      icon: "filtersBroken",
+      executorId: assigneeIds[2],
+      status: statuses[2],
+      bgTone: "info",
+      handles: flowHandleCreate({}),
+    },
   },
 ];
 
 export const createWorkflowNodes = (): IWorkflowNode[] => [
+  // ---------- requirements start --------
   {
     id: "requirements",
-    type: "stage",
+    type: "node",
+    style: { width: NODE_WIDTH, height: 200 },
     position: { x: 24, y: 38 },
-    style: { width: NODE_WIDTH },
     data: {
-      title: "Требования",
-      tasks: [
-        {
-          id: "requirements_brief",
-          title: "Начальное ТЗ",
-          icon: "clipboardTextBroken",
-          executorId: "analyst",
-          status: "done",
-          bgTone: "success",
-        },
-        {
-          id: "requirements_scenarios",
-          title: "Сценарии пользователя",
-          icon: "clipboardTextBroken",
-          executorId: "qa",
-          status: "review",
-          bgTone: "success",
-        },
-      ],
+      label: "Требования",
       executors: staffs,
-      handles: flowHandleCreate({
-        // rightSource: "49%",
-      }),
+      handles: flowHandleCreate({}),
     },
   },
+  {
+    id: "requirements_brief",
+    type: "subNode",
+    extent: "parent",
+    parentId: "requirements",
+    style: { width: 220, minWidth: "min-content" },
+    position: { x: 12, y: 40 },
+    data: {
+      label: "Начальное ТЗ",
+      icon: "clipboardTextBroken",
+      executorId: "analyst",
+      status: "done",
+      bgTone: "success",
+      handles: flowHandleCreate({}),
+    },
+  },
+  {
+    id: "requirements_scenarios",
+    type: "subNode",
+    extent: "parent",
+    parentId: "requirements",
+    style: { width: 220, minWidth: "min-content" },
+    position: { x: 12, y: 110 },
+    data: {
+      label: "Сценарии пользователя",
+      icon: "clipboardTextBroken",
+      executorId: "qa",
+      status: "review",
+      bgTone: "success",
+      handles: flowHandleCreate({}),
+    },
+  },
+  // ---------- requirements утв --------
+
+  // ---------- design start --------
   {
     id: "design",
-    type: "stage",
+    type: "node",
     position: { x: 320, y: 38 },
-    style: { width: NODE_WIDTH },
+    style: { width: NODE_WIDTH, height: NODE_HEIGHT },
     data: {
-      title: "Проектирование",
-      tasks: [
-        {
-          id: "design_diagrams",
-          title: "Проектирование диаграмм",
-          icon: "diagramUpBroken",
-          executorId: "architect",
-          status: "active",
-          bgTone: "success",
-        },
-        {
-          id: "design_architecture",
-          title: "Проектирование архитектуры",
-          icon: "diagramUpBroken",
-          executorId: "architect",
-          status: "review",
-          bgTone: "neutral",
-        },
-        {
-          id: "design_ui",
-          title: "Зарисовки графических интерфейсов",
-          icon: "monitorSmartphoneBroken",
-          executorId: "designer",
-          status: "todo",
-          bgTone: "warning",
-        },
-      ],
+      label: "Проектирование",
+
       executors: staffs,
-      handles: flowHandleCreate({
-        // leftTarget: "46%",
-        // bottomSource: "44%",
-      }),
+      handles: flowHandleCreate({}),
     },
   },
+  {
+    id: "design_diagrams",
+    type: "subNode",
+    extent: "parent",
+    parentId: "design",
+    style: { width: 220, minWidth: "min-content" },
+    position: { x: 12, y: 40 },
+    data: {
+      label: "Проектирование диаграмм",
+      icon: "diagramUpBroken",
+      executorId: "architect",
+      status: "active",
+      bgTone: "success",
+      handles: flowHandleCreate({}),
+    },
+  },
+  {
+    id: "design_architecture",
+    type: "subNode",
+    extent: "parent",
+    parentId: "design",
+    style: { width: 220 },
+    position: { x: 12, y: 110 },
+    data: {
+      label: "Проектирование архитектуры",
+      icon: "diagramUpBroken",
+      executorId: "architect",
+      status: "review",
+      bgTone: "neutral",
+      handles: flowHandleCreate({}),
+    },
+  },
+  {
+    id: "design_ui",
+    type: "subNode",
+    extent: "parent",
+    parentId: "design",
+    style: { width: 220 },
+    position: { x: 12, y: 190 },
+    data: {
+      label: "Зарисовки графических интерфейсов",
+      icon: "monitorSmartphoneBroken",
+      executorId: "designer",
+      status: "todo",
+      bgTone: "warning",
+      handles: flowHandleCreate({}),
+    },
+  },
+  // ---------- design end --------
+
+  // ---------- implementation_a start --------
   {
     id: "implementation_a",
-    type: "stage",
+    type: "node",
     position: { x: 10, y: 400 },
-    style: { width: NODE_WIDTH },
+    style: { width: NODE_WIDTH, height: NODE_HEIGHT },
     data: {
-      title: "Реализация",
-      tasks: createImplementationTasks(
-        "implementation_a",
-        ["backend", "qa", "integrator"],
-        ["active", "review", "done"],
-      ),
+      label: "Реализация A",
       executors: staffs,
       handles: flowHandleCreate({
-        // topTarget: "50%",
         rightSource: "79%",
-        // bottomSource: "50%",
       }),
     },
   },
+
+  ...createImplementationTasks(
+    "implementation_a",
+    ["backend", "qa", "integrator"],
+    ["active", "review", "done"],
+  ),
+  // ---------- implementation_a end --------
+
+  // ---------- implementation_b start --------
   {
     id: "implementation_b",
-    type: "stage",
+    type: "node",
     position: { x: 300, y: 400 },
-    style: { width: NODE_WIDTH },
+    style: { width: NODE_WIDTH, height: NODE_HEIGHT },
     data: {
-      title: "Реализация",
-      tasks: createImplementationTasks(
-        "implementation_b",
-        ["architect", "qa", "integrator"],
-        ["active", "active", "review"],
-      ),
+      label: "Реализация B",
       executors: staffs,
       handles: flowHandleCreate({
         leftTarget: "79%",
         rightSource: "79%",
-        // bottomSource: "50%",
       }),
     },
   },
+
+  ...createImplementationTasks(
+    "implementation_b",
+    ["architect", "qa", "integrator"],
+    ["active", "active", "review"],
+  ),
+  // ---------- implementation_b end --------
+
+  // ---------- implementation_c start --------
   {
     id: "implementation_c",
-    type: "stage",
+    type: "node",
     position: { x: 590, y: 400 },
-    style: { width: NODE_WIDTH },
+    style: { width: NODE_WIDTH, height: NODE_HEIGHT },
     data: {
-      title: "Реализация",
-      tasks: createImplementationTasks(
-        "implementation_c",
-        ["backend", "qa", "integrator"],
-        ["todo", "active", "todo"],
-      ),
+      label: "Реализация C",
       executors: staffs,
       handles: flowHandleCreate({
         leftTarget: "79%",
@@ -167,100 +235,96 @@ export const createWorkflowNodes = (): IWorkflowNode[] => [
       }),
     },
   },
+
+  ...createImplementationTasks(
+    "implementation_c",
+    ["backend", "qa", "integrator"],
+    ["todo", "active", "todo"],
+  ),
+  // ---------- implementation_c end --------
+
+  // ---------- implementation_d start --------
   {
     id: "implementation_d",
-    type: "stage",
+    type: "node",
     position: { x: 880, y: 400 },
-    style: { width: NODE_WIDTH },
+    style: { width: NODE_WIDTH, height: NODE_HEIGHT },
     data: {
-      title: "Реализация",
-      tasks: createImplementationTasks(
-        "implementation_d",
-        ["backend", "qa", "integrator"],
-        ["todo", "todo", "todo"],
-      ),
+      label: "Реализация D",
       executors: staffs,
       handles: flowHandleCreate({
         leftTarget: "79%",
       }),
     },
   },
+
+  ...createImplementationTasks(
+    "implementation_d",
+    ["backend", "qa", "integrator"],
+    ["todo", "todo", "todo"],
+  ),
+  // ---------- implementation_d end --------
+
+  // ---------- acceptance start --------
   {
     id: "acceptance",
-    type: "stage",
+    type: "nodeCompact",
     position: { x: 10, y: 750 },
     style: { width: NODE_WIDTH },
     data: {
-      variant: "compact",
-      tasks: [
-        {
-          id: "acceptance_tests",
-          title: "Приемочные испытания",
-          icon: "filtersBroken",
-          executorId: "qa",
-          status: "active",
-          bgTone: "info",
-        },
-      ],
+      id: "acceptance_tests",
+      label: "Приемочные испытания",
+      icon: "filtersBroken",
+      executorId: "qa",
+      status: "active",
+      bgTone: "info",
       executors: staffs,
-      handles: flowHandleCreate({
-        // topTarget: "50%",
-        // rightTarget: "50%",
-        // rightSource: "78%",
-        // bottomSource: "50%",
-      }),
+      handles: flowHandleCreate({}),
     },
   },
+  // ---------- acceptance end --------
+
+  // ---------- integration_test start --------
   {
     id: "integration_test",
-    type: "stage",
+    type: "nodeCompact",
     position: { x: 300, y: 750 },
     style: { width: NODE_WIDTH },
     data: {
-      variant: "compact",
-      tasks: [
-        {
-          id: "integration_test_run",
-          title: "Интеграционное тестирование",
-          icon: "filtersBroken",
-          executorId: "integrator",
-          status: "active",
-          bgTone: "info",
-        },
-      ],
+      id: "integration_test_run",
+      label: "Интеграционное тестирование",
+      icon: "filtersBroken",
+      executorId: "integrator",
+      status: "active",
+      bgTone: "info",
+
       executors: staffs,
-      handles: flowHandleCreate({
-        // topTarget: "50%",
-        // leftSource: "50%",
-      }),
+      handles: flowHandleCreate({}),
     },
   },
+  // ---------- integration_test end --------
+
+  // ---------- deploy start --------
   {
     id: "deploy",
-    type: "stage",
+    type: "nodeCompact",
     position: { x: 590, y: 750 },
     style: { width: NODE_WIDTH },
     data: {
-      variant: "compact",
-      tasks: [
-        {
-          id: "deploy_cloud",
-          title: "Развёртывание в облачной платформе",
-          icon: "pieChartBroken",
-          executorId: "devops",
-          status: "review",
-          bgTone: "info",
-        },
-      ],
+      id: "deploy_cloud",
+      label: "Развёртывание в облачной платформе",
+      icon: "pieChartBroken",
+      executorId: "devops",
+      status: "review",
+      bgTone: "info",
+
       executors: staffs,
-      handles: flowHandleCreate({
-        // topTarget: "50%",
-        // leftTarget: "50%",
-        // rightSource: "50%",
-        // bottomTarget: "50%",
-      }),
+      handles: flowHandleCreate({}),
     },
   },
+  // ---------- deploy end --------
+
+  // ---------- operations btn end --------
   {
     id: "operations",
     type: "exploitationButton",
@@ -268,9 +332,8 @@ export const createWorkflowNodes = (): IWorkflowNode[] => [
     style: { width: 198 },
     data: {
       label: "ЭКСПЛУАТАЦИЯ",
-      handles: flowHandleCreate({
-        // leftTarget: "50%",
-      }),
+      handles: flowHandleCreate({}),
     },
   },
+  // ---------- operations btn end --------
 ];

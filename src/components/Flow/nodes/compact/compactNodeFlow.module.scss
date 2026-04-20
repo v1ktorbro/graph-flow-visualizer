@@ -1,0 +1,110 @@
+@use "../../../../app/styles/fonts.scss";
+@use "../../../../app/styles/global.scss";
+
+.root {
+  width: inherit;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.subNode {
+  padding: 0.75rem 0.5rem;
+
+  min-height: 3rem;
+
+  display: flex;
+  align-items: center;
+  column-gap: 0.25rem;
+
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+
+  @include global.transition(all, 0.25s, ease-in);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.taskCardToneNeutral {
+  border-color: #dce4f2;
+  background: #f7faff;
+}
+
+.taskCardToneSuccess {
+  border-color: #d5eadf;
+  background: #eef8f2;
+}
+
+.taskCardToneWarning {
+  border-color: #f0dfba;
+  background: #fff8ea;
+}
+
+.taskCardToneInfo {
+  border-color: #d7e7ff;
+  background: #edf5ff;
+}
+
+.info {
+  display: flex;
+  column-gap: 0.5rem;
+  // align-items: center;
+  flex: 1 1 auto;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+
+  // align-self: flex-start;
+
+  flex-shrink: 0;
+}
+
+.label {
+  @include fonts.text-small;
+  white-space: pre-wrap;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+
+  .icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 0.25rem;
+
+    .icon {
+      height: 0.75rem;
+      width: 0.75rem;
+    }
+  }
+}
+
+.taskConnector {
+  position: relative;
+  align-self: center;
+  width: 2px;
+  height: 16px;
+  margin: 4px 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7db3ff 0%, #2f80ed 100%);
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid #2f80ed;
+    border-bottom: 2px solid #2f80ed;
+    transform: translateX(-50%) rotate(45deg);
+  }
+}

@@ -17,24 +17,23 @@ import type { IWorkflowNode } from "../../assets/types/flowTypes";
 
 import CustomEdgeFlow from "./edge/CustomEdgeFlow";
 import ExploitationButtonNodeFlow from "./nodes/exploitationButton/ExploitationButtonNodeFlow";
-import StageNodeFlow from "./nodes/stage/StageNodeFlow";
+import NodeFlow from "./nodes/node/NodeFlow";
+import CompactNodeFlow from "./nodes/compact/CompactNodeFlow";
+import SubNodeFlow from "./nodes/SubNodeFlow/SubNodeFlow";
 
 import { createWorkflowNodes } from "../../assets/data/nodesData";
-
 import { edgesData } from "../../assets/data/edgesData";
 
 const nodeTypes = {
-  stage: StageNodeFlow,
+  node: NodeFlow,
+  subNode: SubNodeFlow,
+  nodeCompact: CompactNodeFlow,
   exploitationButton: ExploitationButtonNodeFlow,
 };
 
-const edgeTypes = {
-  custom: CustomEdgeFlow,
-};
+const edgeTypes = { custom: CustomEdgeFlow };
 
-const defaultEdgeOptions = {
-  type: "custom",
-};
+const defaultEdgeOptions = { type: "custom" };
 
 const Flow = () => {
   const [nodes, , onNodesChange] = useNodesState(createWorkflowNodes());
@@ -59,14 +58,11 @@ const Flow = () => {
         defaultEdgeOptions={defaultEdgeOptions}
         onEdgesChange={onEdgesChange}
         fitView
-        fitViewOptions={{ padding: 0.12 }}
-        // minZoom={0.45}
-        // maxZoom={1.4}
         onConnect={onConnect}
         nodesConnectable={false}
         nodesDraggable
-        elementsSelectable
-        proOptions={{ hideAttribution: true }}
+        // elementsSelectable
+        // proOptions={{ hideAttribution: true }}
         deleteKeyCode={["Delete"]}
       >
         <Background

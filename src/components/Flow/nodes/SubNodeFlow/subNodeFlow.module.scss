@@ -1,12 +1,14 @@
-@use "../../../../../app/styles/fonts.scss";
-@use "../../../../../app/styles/global.scss";
+@use "../../../../app/styles/fonts.scss";
+@use "../../../../app/styles/global.scss";
 
 .root {
+  width: inherit;
+
   display: flex;
   flex-direction: column;
 }
 
-.taskCard {
+.subNode {
   padding: 0.75rem 0.5rem;
 
   min-height: 3rem;
@@ -61,7 +63,7 @@
   flex-shrink: 0;
 }
 
-.title {
+.label {
   @include fonts.text-small;
   white-space: pre-wrap;
 }

@@ -1,6 +1,7 @@
 @use "../../../../app/styles/fonts.scss";
 
 .root {
+  height: 100%;
   &:not(.stageNodeCompact) {
     padding-inline: 0.75rem;
     padding-block: 0.5rem 0.75rem;
@@ -11,7 +12,7 @@
   }
 }
 
-.title {
+.label {
   margin-bottom: 0.5rem;
   @include fonts.title-medium();
 }

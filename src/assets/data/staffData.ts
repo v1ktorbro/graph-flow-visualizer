@@ -1,6 +1,6 @@
-import type { IStaffTask } from "../types/flowTypes";
+import type { ISubNodeExecutor } from "../types/flowTypes";
 
-export const staffs: Record<string, IStaffTask> = {
+export const staffs: Record<string, ISubNodeExecutor> = {
   analyst: {
     id: "analyst",
     name: "Анна Белова",
