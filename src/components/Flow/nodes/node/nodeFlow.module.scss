@@ -2,14 +2,13 @@
 
 .root {
   height: 100%;
-  &:not(.stageNodeCompact) {
-    padding-inline: 0.75rem;
-    padding-block: 0.5rem 0.75rem;
 
-    border: var(--border);
-    border-radius: 0.5rem;
-    border-width: 2px;
-  }
+  // // padding-inline: 0.75rem;
+  // // padding-block: 0.5rem 0.75rem;
+
+  // border: var(--border);
+  // border-radius: 0.5rem;
+  // border-width: 2px;
 }
 
 .label {

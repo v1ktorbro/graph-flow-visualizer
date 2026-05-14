@@ -1,0 +1,130 @@
+import type { WorkflowApiWorkflow } from "../../types/flowTypes";
+
+export const WORKFLOW_API_DATA: WorkflowApiWorkflow[] = [
+  {
+    id: "default_build",
+    name: "Build Workflow",
+    description:
+      "Standard software development pipeline: requirements → planning → execution",
+    nodes: [
+      {
+        id: "start",
+        type: "start",
+      },
+      {
+        id: "req_gather",
+        type: "phase",
+        task_type: "requirements_gathering",
+        description: "Gather project requirements from user",
+        agent_selection: "auction",
+        phase_label: "requirements",
+      },
+      {
+        id: "human_expert",
+        type: "phase",
+        task_type: "answer_questions",
+        description: "Answer requirements questions automatically",
+        agent_selection: "direct",
+        agent_type: "human_expert",
+        phase_label: "requirements",
+      },
+      {
+        id: "req_finalizer",
+        type: "phase",
+        task_type: "finalize_requirements",
+        description: "Create final requirements document",
+        agent_selection: "direct",
+        agent_type: "requirements_finalizer",
+        phase_label: "requirements",
+      },
+      {
+        id: "gate_req",
+        type: "approval_gate",
+        label: "Review requirements",
+      },
+      {
+        id: "planning",
+        type: "phase",
+        task_type: "planning",
+        description: "Create hierarchical task breakdown",
+        agent_selection: "auction",
+        phase_label: "planning",
+      },
+      {
+        id: "gate_plan",
+        type: "approval_gate",
+        label: "Review plan",
+      },
+      {
+        id: "execution",
+        type: "execution",
+        phase_label: "execution",
+      },
+      {
+        id: "gate_output",
+        type: "approval_gate",
+        label: "Review output",
+      },
+      {
+        id: "deploy",
+        type: "deploy",
+        phase_label: "deployment",
+      },
+      {
+        id: "end",
+        type: "end",
+      },
+    ],
+    edges: [
+      {
+        from: "start",
+        to: "req_gather",
+      },
+      {
+        from: "req_gather",
+        to: "human_expert",
+      },
+      {
+        from: "human_expert",
+        to: "req_finalizer",
+      },
+      {
+        from: "req_finalizer",
+        to: "gate_req",
+      },
+      {
+        from: "gate_req",
+        to: "planning",
+        condition: "approved",
+      },
+      {
+        from: "gate_req",
+        to: "req_gather",
+        condition: "rejected",
+      },
+      {
+        from: "planning",
+        to: "gate_plan",
+      },
+      {
+        from: "gate_plan",
+        to: "execution",
+        condition: "approved",
+      },
+      {
+        from: "execution",
+        to: "gate_output",
+      },
+      {
+        from: "gate_output",
+        to: "deploy",
+        condition: "approved",
+      },
+      {
+        from: "deploy",
+        to: "end",
+      },
+    ],
+    is_default: true,
+  },
+] satisfies WorkflowApiWorkflow[];

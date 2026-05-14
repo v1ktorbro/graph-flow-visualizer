@@ -7,10 +7,6 @@ declare namespace SubNodeFlowModuleScssNamespace {
     meta: string;
     root: string;
     subNode: string;
-    taskCardToneInfo: string;
-    taskCardToneNeutral: string;
-    taskCardToneSuccess: string;
-    taskCardToneWarning: string;
     taskConnector: string;
   }
 }

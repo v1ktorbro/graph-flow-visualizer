@@ -2,7 +2,6 @@ declare namespace NodeFlowModuleScssNamespace {
   export interface INodeFlowModuleScss {
     label: string;
     root: string;
-    stageNodeCompact: string;
     ul: string;
   }
 }

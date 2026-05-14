@@ -2,23 +2,12 @@ import scss from "./compactNodeFlow.module.scss";
 
 import { memo, Suspense } from "react";
 
-import type {
-  NodeCompactType,
-  SubNodeBgTone,
-} from "../../../../assets/types/flowTypes";
+import type { NodeCompactType } from "../../../../assets/types/flowTypes";
 
 import IconRenderer from "../../../ui/iconRenderer/IconRenderer";
 import HandlesFlow from "../../handles/HandlesFlow";
 
 import { NodeProps } from "@xyflow/react";
-import cl from "../../../../assets/utils/classNames/classNames";
-
-const toneClassNames: Record<SubNodeBgTone, string> = {
-  neutral: scss.taskCardToneNeutral,
-  success: scss.taskCardToneSuccess,
-  warning: scss.taskCardToneWarning,
-  info: scss.taskCardToneInfo,
-};
 
 const CompactNodeFlow = (nodeCompact: NodeProps<NodeCompactType>) => {
   const { data } = nodeCompact;
@@ -27,12 +16,7 @@ const CompactNodeFlow = (nodeCompact: NodeProps<NodeCompactType>) => {
     <div className={scss.root}>
       <HandlesFlow handles={data?.handles} />
 
-      <div
-        className={cl(
-          scss.subNode,
-          data?.bgTone && toneClassNames[data?.bgTone],
-        )}
-      >
+      <div className={scss.subNode}>
         <div className={scss.info}>
           <Suspense>
             {data.icon && (
@@ -44,8 +28,6 @@ const CompactNodeFlow = (nodeCompact: NodeProps<NodeCompactType>) => {
         </div>
 
         <div className={scss.meta}>
-          {/* <ImageBadgeItemStageNodeFlow {...assignee} /> */}
-
           <div className={scss.icons}>
             <IconRenderer name="infoCircleBroken" className={scss.icon} />
             <IconRenderer

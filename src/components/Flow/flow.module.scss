@@ -1,46 +1,41 @@
-.flowRoot {
+@use "../../app/styles/global.scss";
+
+.root {
   width: 100%;
   height: 100%;
 }
 
-.flowCanvas {
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at top left, rgba(47, 128, 237, 0.1), transparent 20%),
-    linear-gradient(180deg, #ffffff 0%, #f5f8ff 100%);
-}
+// для кастомизации дока:  https://reactflow.dev/learn/customization/theming
+.flow {
+  --xy-edge-stroke-default: var(--color-info-light);
+  --xy-edge-stroke-selected-default: var(--color-secondary);
 
-.flowCanvas :global(.react-flow__pane) {
-  cursor: grab;
-}
+  :global(.react-flow__node) {
+    padding-inline: 0.75rem;
+    padding-block: 0.5rem;
 
-.flowCanvas :global(.react-flow__node) {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
+    box-sizing: content-box;
 
-.flowCanvas :global(.react-flow__edge path) {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
+    border: var(--border);
+    border-radius: 0.5rem;
+    border-width: 2px;
+  }
 
-.flowCanvas :global(.react-flow__controls) {
-  border: 1px solid rgba(193, 205, 225, 0.85);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 16px 32px rgba(107, 128, 160, 0.16);
-}
+  :global(.react-flow__node:not(.selected)):hover {
+    // при наведении
+    border-color: var(--color-secondary);
+    border-style: groove;
+    transition: border-color 0.3s ease-in;
+  }
 
-.flowCanvas :global(.react-flow__controls-button) {
-  width: 36px;
-  height: 36px;
-  border-bottom: 1px solid rgba(193, 205, 225, 0.85);
-  background: rgba(255, 255, 255, 0.96);
-  color: #34507a;
-}
+  :global(.react-flow__node.selected) {
+    //если выбрана
+    border-color: var(--color-secondary);
+    transition: border-color 0.2s ease-in;
+  }
 
-.flowCanvas :global(.react-flow__controls-button:last-child) {
-  border-bottom: none;
+  // edge -- arrow
+  polyline {
+    stroke: context-stroke; // для стрелки, для состояниия selected. Дословно: используй такой же stroke, как у родительского/контекстного элемента.
+  }
 }
