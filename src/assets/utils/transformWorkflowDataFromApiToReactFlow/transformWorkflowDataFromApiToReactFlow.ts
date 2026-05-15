@@ -14,7 +14,7 @@ import type {
 import { flowHandleCreate } from "../flowHandleCreate/flowHandleCreate";
 
 const NODE_WIDTH = 240;
-const NODE_HEIGHT = 255;
+const NODE_HEIGHT = 120;
 const SUB_NODE_WIDTH = 220;
 
 const TOP_LEVEL_FALLBACK_GAP = 280;

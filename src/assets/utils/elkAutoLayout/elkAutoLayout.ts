@@ -287,6 +287,9 @@ export const elkAutoLayout = async (
   const nodesById = new Map(preparedNodes.map((node) => [node.id, node]));
   const topLevelNodes = preparedNodes.filter((node) => !node.parentId);
   const topLevelNodeIds = new Set(topLevelNodes.map((node) => node.id));
+  const topLevelNodeOrder = new Map(
+    topLevelNodes.map((node, index) => [node.id, index]),
+  );
 
   // 3. usedEdges не дает добавить в ELK повторную связь между теми же
   // верхнеуровневыми контейнерами, если несколько сабнод связаны снаружи.
@@ -313,6 +316,14 @@ export const elkAutoLayout = async (
     // 4.4. Если хотя бы один контейнер не попал в topLevelNodes,
     // ELK не сможет построить такую связь.
     if (!sourceExists || !targetExists) return result;
+
+    const sourceOrder = topLevelNodeOrder.get(sourceRootId) ?? 0;
+    const targetOrder = topLevelNodeOrder.get(targetRootId) ?? 0;
+
+    // Обратные связи должны рисоваться в React Flow, но не должны влиять
+    // на слои ELK. Иначе циклы вроде requirements <-> gate_req тянут
+    // approval gate обратно в первую колонку.
+    if (sourceOrder > targetOrder) return result;
 
     const edgeKey = `${sourceRootId}->${targetRootId}`;
 
