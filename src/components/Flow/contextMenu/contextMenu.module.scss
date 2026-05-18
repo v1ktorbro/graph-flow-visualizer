@@ -1,0 +1,46 @@
+@use "../../../app/styles/global.scss";
+
+.root {
+  padding: 0.5rem 0.75rem;
+
+  background-color: var(--color-bg);
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+
+  box-shadow: var(--shadow);
+  border: var(--border);
+  border-width: 2px;
+
+  position: absolute;
+  z-index: 10;
+}
+
+.title {
+  font-size: 0.75rem;
+}
+
+.btn {
+  padding: 0.25rem 0.5rem;
+
+  font-size: 0.75rem;
+
+  background-color: transparent;
+
+  border: var(--border);
+  border-radius: 0.5rem;
+  outline: none;
+
+  cursor: pointer;
+
+  @include global.transition;
+
+  &:hover {
+    background-color: var(--color-secondary);
+  }
+
+  &.remove:hover {
+    background-color: var(--color-error-light);
+  }
+}
