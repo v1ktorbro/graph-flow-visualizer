@@ -6,7 +6,12 @@ import { memo } from "react";
 import type { CSSProperties, FC } from "react";
 import type { IFlowHandleData } from "../../../assets/types/flowTypes";
 
-const HandlesFlow: FC<{ handles: IFlowHandleData[] }> = ({ handles }) => {
+import cl from "../../../assets/utils/classNames/classNames";
+
+const HandlesFlow: FC<{ handles: IFlowHandleData[]; className?: string }> = ({
+  handles,
+  className,
+}) => {
   return (
     <>
       {handles?.map((handle) => {
@@ -21,11 +26,11 @@ const HandlesFlow: FC<{ handles: IFlowHandleData[] }> = ({ handles }) => {
           <Handle
             key={handle?.id}
             id={handle?.id}
-            className={scss.root}
+            className={cl(scss.root, className)}
             type={handle?.type}
             position={handle?.position}
             style={handleStyle}
-            isConnectable={false}
+            // isConnectable={false}
           />
         );
       })}

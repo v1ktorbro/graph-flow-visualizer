@@ -267,6 +267,7 @@ const createSubnode = (
   extent: "parent",
   position: { x: 0, y: 0 },
   style: { width: SUB_NODE_WIDTH },
+  draggable: false,
   data: {
     label: getNodeLabel(node),
     icon: getNodeIcon(node),

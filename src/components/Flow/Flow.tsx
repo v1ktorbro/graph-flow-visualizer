@@ -38,6 +38,7 @@ const Flow = () => {
 
   const onConnect = useCallback(
     (connection: Connection) => {
+      if (connection.source === connection.target) return; //запретить соединять точки между собой в пределах одной ноды
       setEdges((eds) => addEdge(connection, eds));
     },
     [setEdges],
@@ -93,7 +94,7 @@ const Flow = () => {
         onEdgesChange={onEdgesChange}
         fitView
         onConnect={onConnect}
-        nodesConnectable={false}
+        // nodesConnectable={false}
         nodesDraggable
         // elementsSelectable
         // proOptions={{ hideAttribution: true }}
